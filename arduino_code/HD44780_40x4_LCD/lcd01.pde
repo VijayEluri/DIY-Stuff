@@ -139,14 +139,19 @@ byte bigNumbersArray[10][4][3] = {
   }
 };
 
-byte customCharArray[2][4][3] = {
+byte bigPunctuationArray[2][4][3] = {
   {   
-    // custom :
+    // custom colon
     {254, 254, 254},
     {254, 2, 254},
     {254, 6, 254},
     {254, 254, 254}
   },{ 
+    // custom comma
+    {254, 254, 254},
+    {254, 254, 254},
+    {254, 254, 254},
+    {254, 7, 254}
   }
 };
 
@@ -158,40 +163,33 @@ void loadCustomChars()
   }
 }
 
-void printBigChar(byte digit, byte col)
+void genericDigitPrint(byte digit, byte column)
 {
-  if (digit > 9) return;
-  
   // print rows
   for (int y = 0; y < 4; y++) 
   {
-    // print columns
+    // print chars in columns
     for (int x = 0; x < 3; x++)
     {
       // 3 custom chars
-      lcd.setCursor(col + x, y);
+      lcd.setCursor(column + x, y);
       lcd.write(bigNumbersArray[digit][y][x]);
     }
   }
+}
+
+void printBigChar(byte digit, byte col)
+{
+  if (digit > 9) return;
+  genericDigitPrint(digit, col);
 }
 
 void printBigCharOnPosition(byte digit, byte position)
 {
   if (digit > 9) return;
   if (position > 9) return;
-
-  // print rows
-  for (int y = 0; y < 4; y++) 
-  {
-    // print columns
-    for (int x = 0; x < 3; x++)
-    {
-      // 3 custom chars
-      lcd.setCursor((position * 4) + x, y);
-      lcd.write(bigNumbersArray[digit][y][x]);
-    }
-  }
-
+  
+  genericDigitPrint(digit, position * 4);
 }
 
 void setup()
