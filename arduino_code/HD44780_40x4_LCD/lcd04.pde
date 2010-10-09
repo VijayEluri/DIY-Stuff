@@ -1,7 +1,7 @@
 /*==============================================================================
- * SIMPLE COUNTER                                                                
+ * SIMPLE DOWN COUNTER WITH VISUAL ALARM
  *============================================================================*/
- 
+
 #include <LiquidCrystal440.h>
 uint8_t nRows = 4;
 uint8_t nColumns = 0;
@@ -10,7 +10,7 @@ uint8_t rw = 47;
 int customCharCount = 7;
 
 //                rs, rw, en1,en2, d4, d5, d6, d7
-LiquidCrystal lcd(12, 255, 11, 10,  5, 4, 3, 2); 
+LiquidCrystal lcd(12, 255, 11, 10,  5, 4, 3, 2);
 
 byte customCharArray[7][8] = {
   {
@@ -80,61 +80,61 @@ byte customCharArray[7][8] = {
 };
 
 byte bigNumbersArray[10][4][3] = {
-  {   
+  {
     // custom 0
     {1, 2, 3},
     {255, 254, 255},
     {255, 254, 255},
     {4, 6, 5}
-  },{   
+  },{
     // custom 1
     {2, 3, 254},
     {254, 255, 254},
     {254, 255, 254},
     {6, 6, 6}
-  },{   
+  },{
     // custom 2
     {1, 2, 3},
     {1, 2, 255},
     {255, 254, 254},
     {4, 6, 6}
-  },{   
+  },{
     // custom 3
     {1, 2, 3},
     {254, 2, 255},
     {254, 254, 255},
     {4, 6, 5}
-  },{   
+  },{
     // custom 4
     {2, 254, 254},
     {255, 2, 2},
     {254, 255, 254},
     {254, 6, 254}
-  },{   
+  },{
     // custom 5
     {2, 2, 2},
     {255, 2, 2},
     {254, 254, 255},
     {6, 6, 5}
-  },{   
+  },{
     // custom 6
     {1, 2, 3},
     {255, 2, 3},
     {255, 254, 255},
     {4, 6, 5}
-  },{   
+  },{
     // custom 7
     {2, 2, 2},
     {254, 2, 255},
     {254, 255, 254},
     {254, 6, 254}
-  },{   
+  },{
     // custom 8
     {1, 2, 3},
     {255, 2, 255},
     {255, 254, 255},
     {4, 6, 5}
-  },{   
+  },{
     // custom 9
     {1, 2, 3},
     {255, 254, 255},
@@ -144,13 +144,13 @@ byte bigNumbersArray[10][4][3] = {
 };
 
 byte bigPunctuationArray[2][4][3] = {
-  {   
+  {
     // custom colon
     {254, 254, 254},
     {254, 2, 254},
     {254, 6, 254},
     {254, 254, 254}
-  },{ 
+  },{
     // custom comma
     {254, 254, 254},
     {254, 254, 254},
@@ -159,7 +159,7 @@ byte bigPunctuationArray[2][4][3] = {
   }
 };
 
-void loadCustomChars() 
+void loadCustomChars()
 {
   for (int i = 0; i < customCharCount; i++)
   {
@@ -170,7 +170,7 @@ void loadCustomChars()
 void genericPrint(byte digit, byte column)
 {
   // print rows
-  for (int y = 0; y < 4; y++) 
+  for (int y = 0; y < 4; y++)
   {
     // print chars in columns
     for (int x = 0; x < 3; x++)
@@ -185,7 +185,7 @@ void genericPrint(byte digit, byte column)
 void genericPunctuationPrint(byte punctuation, byte column)
 {
   // print rows
-  for (int y = 0; y < 4; y++) 
+  for (int y = 0; y < 4; y++)
   {
     // print chars in columns
     for (int x = 0; x < 3; x++)
@@ -207,13 +207,42 @@ void printBigCharOnPosition(byte digit, byte position)
 {
   if (digit > 9) return;
   if (position > 9) return;
-  
+
   genericPrint(digit, position * 4);
 }
 
 void printColon(byte position)
 {
   genericPunctuationPrint(0, position * 4);
+}
+
+void displayAlarm(byte mode)
+{
+  byte k = 0;
+  byte colors[2][2] = {
+    {255, 254},
+    {254, 255}
+  };
+  
+  for (byte y = 0; y < 4; y++)
+  {
+    for (byte x = 0; x < 40; x++)
+    {
+      lcd.setCursor(x, y);
+      if (k % 2 == 0)
+      {
+        lcd.write(colors[mode][0]);
+      }
+      else
+      {
+        lcd.write(colors[mode][1]);
+      }
+      
+      k++;
+    }
+    
+    k++;
+  }
 }
 
 
@@ -227,16 +256,10 @@ void setup()
 }
 
 byte minutes = 0;
-byte seconds = 0;
+byte seconds = 3;
 
-void loop() {
-
-  if (seconds == 60)
-  {
-    minutes++;
-    seconds = 0;
-  }
-  
+void loop() 
+{
   if (minutes < 10)
   {
     printBigCharOnPosition(0, 5);
@@ -249,7 +272,7 @@ void loop() {
   }
 
   printColon(7);
-  
+
   if (seconds < 10)
   {
     printBigCharOnPosition(0, 8);
@@ -260,7 +283,37 @@ void loop() {
     printBigCharOnPosition(seconds/10, 8);
     printBigCharOnPosition(seconds % 10, 9);
   }
-  
-  seconds++;
+
+  if (seconds == 0)
+  {
+    if (minutes > 0)
+    {
+      minutes--;
+      seconds = 59;
+    }
+    else
+    {
+      delay(500);
+      
+      for (byte x = 0; x < 4; x++)
+      {
+        displayAlarm(0);
+        delay(400);
+        displayAlarm(1);
+        delay(400);
+      }
+
+      lcd.clear();
+      
+      minutes = 1;
+      seconds = 0;
+    }
+  }
+  else
+  {
+    seconds--;
+  }
+
   delay(1000);
+
 }
