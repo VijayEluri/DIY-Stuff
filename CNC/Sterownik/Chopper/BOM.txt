@@ -1,0 +1,20 @@
+Partlist
+
+Exported from currlim.brd at 2011-10-29 21:42:48
+
+EAGLE Version 5.11.0 Copyright (c) 1988-2010 CadSoft
+
+Part     Value          Package  Library    Position (mm)         Orientation
+
+C1                      E5-13    rcl        (5.08 24.13)          R0
+C2                      E5-13    rcl        (25.4 24.13)          R0
+C3                      E5-13    rcl        (45.72 24.13)         R0
+C4                      E7,5-18  rcl        (38.1 8.89)           R180
+IC1      317T           TO220H   linear     (7.62 57.15)          R0
+IC2      317T           TO220H   linear     (27.94 57.15)         R0
+IC3      317T           TO220H   linear     (49.53 57.15)         R0
+R1                      0617/17  rcl        (15.24 34.29)         R90
+R2                      0617/17  rcl        (35.56 34.29)         R90
+R3                      0617/17  rcl        (55.88 34.29)         R90
+X1                      AK500/2  con-ptr500 (58.42 6.35)          R270
+X2                      AK500/4  con-ptr500 (13.97 6.35)          R0

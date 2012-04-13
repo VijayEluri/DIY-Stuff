@@ -1,0 +1,21 @@
+http://www.elektroda.pl/rtvforum/viewtopic.php?t=2002641&highlight=
+
+BUZ11       - 4szt  - 2zł       = 8zł           ( TRANZYSTOR Z DIODĄ ZWROTNĄ! )
+BC337-40    - 4szt  - 0.2zł     = 0.8zł
+rezyst. mały- 4szt  -                           1kR (albo 300 - 470kR)
+rezyst. 5W  - 4szt  - 0.3zł     = 1.2zł
+1N4148      - 12szt - 0.3zł     = 0.3zł
+74AC238     - 1szt
+CD4516      - 1szt  - 0.8zł     = 0.8zł
+kond. 2200uF- 1szt  - 0.3zł     = 0.3zł
+
+RAZEM                           = 
+
+Mosfet Gate Pin -> Pull Down Resistor -> Gnd  
+Arduino IO Pin -> Current Limiting Resistor -> Mosfet Gate Pin  
+Mosfet Source Pin -> Gnd  
+Mosfet Drain Pin -> Negative Fan Lead  
+Positive Fan Lead -> 5V  
+
+The pull down resistor can be almost any value for most applications. I recommend you use a 10K Ohm resistor.
+The current limiting resistor isn’t necessary, but could avoid damage to your Mcu and Mosfet, so it is good practice. I would go with a common value such as 330 Ohm.

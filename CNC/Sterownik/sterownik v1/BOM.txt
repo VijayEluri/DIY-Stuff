@@ -1,0 +1,38 @@
+Partlist
+
+Exported from sterownik_poprawki_led_v3.sch at 2011-10-29 21:22:23
+
+EAGLE Version 5.11.0 Copyright (c) 1988-2010 CadSoft
+
+Part     Value             Device          Package      Library        Sheet
+
+C1       220nF             C-EU050-025X075 C050-025X075 rcl            1
+C2       220nF             C-EU050-025X075 C050-025X075 rcl            1
+C3       220nF             C-EU050-025X075 C050-025X075 rcl            1
+C4       220nF             C-EU050-025X075 C050-025X075 rcl            1
+C5       220nF             C-EU050-025X075 C050-025X075 rcl            1
+C6       1000uF            CPOL-EUE5-8.5   E5-8,5       resistor       1
+D1       1N4004            1N4004          DO41-10      diode          1
+D2       1N4004            1N4004          DO41-10      diode          1
+D3       1N4004            1N4004          DO41-10      diode          1
+D4       1N4004            1N4004          DO41-10      diode          1
+IC1      MEGA8-P           MEGA8-P         DIL28-3      atmel          1
+J2       Sterowanie reczne MA03-1          MA03-1       con-lstb       1
+J3       Sterowanie        MA03-1          MA03-1       con-lstb       1
+LED      zielona           LED3MM          LED3MM       led            1
+R1       1kR               R-EU_0207/10    0207/10      rcl            1
+R2       1kR               R-EU_0207/15    0207/15      rcl            1
+R3       1kR               R-EU_0207/15    0207/15      rcl            1
+R4       1kR               R-EU_0207/15    0207/15      rcl            1
+R5       1kR               R-EU_0207/10    0207/10      rcl            1
+R6       1kR               R-EU_0207/10    0207/10      rcl            1
+R7       1kR               R-EU_0207/10    0207/10      rcl            1
+R8       1kR               R-EU_0207/10    0207/10      rcl            1
+R9       1kR               R-EU_0207/10    0207/10      rcl            1
+R10      200R              R-EU_0207/10    0207/10      rcl            1
+T1       BD235             BD235           TO126        transistor-npn 1
+T2       BD235             BD235           TO126        transistor-npn 1
+T3       BD235             BD235           TO126        transistor-npn 1
+T4       BD235             BD235           TO126        transistor-npn 1
+X1       Zasilanie         AK500/2         AK500/2      con-ptr500     1
+X2       Cewki             AK500/4         AK500/4      con-ptr500     1
